@@ -1,2 +1,3 @@
 # A* Algorithm Visualization
-Implemented with Python using PyGame 
+-Implementing the extension Dijkstra's Algorithm with Python.
+-Uses PyGame for GUI
