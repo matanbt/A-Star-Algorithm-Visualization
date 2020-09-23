@@ -13,6 +13,8 @@ SLEEP_TIME=0
 WIDTH=SQUARE_SIZE*WIDTH_BY_GRIDS
 SCREEN = pygame.display.set_mode((WIDTH,WIDTH+3*SQUARE_SIZE))
 
+#TODO stater message with size choosing
+
 #colors:
 GRID_LINES_COLOR=(224,224,224)
 BG_COLOR=(255,255,255)
