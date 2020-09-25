@@ -3,17 +3,31 @@ import sys
 import time
 from queue import PriorityQueue as PrQ
 import pygame
+from GUI_API import GUIApp
 
-#final vars:
-SQUARE_SIZE=17
-WIDTH_BY_GRIDS=40
+#final vars: (can be modified by user via Settings pop-up)
+SQUARE_SIZE=20
+SQUARE_SIZE_DICT={
+    'SM' : 14, 'MD' : 20, 'LG' : 23,'XL' : 27
+}
+WIDTH_BY_GRIDS=30
+# SQUARE_SIZE , WIDTH_BY_GRIDS=17 , 40
+
 SLEEP_TIME=0
+SLEEP_TIME_DICT={
+    'Normal': 0, 'Slow' : 0.2, 'Very Slow' : 0.5
+}
+
+DIJKSTRA=False
+ALGORITHM_CHOICE_DICT = {
+    'A* Algorithm':False,'Dijkstra' : True
+}
 
 #derived final vars:
 WIDTH=SQUARE_SIZE*WIDTH_BY_GRIDS
 SCREEN = pygame.display.set_mode((WIDTH,WIDTH+3*SQUARE_SIZE))
 
-#TODO stater message with size choosing
+
 
 #colors:
 GRID_LINES_COLOR=(224,224,224)
@@ -51,8 +65,10 @@ class Spot:
 
     #heuristic func
     def h(self,end):
-        return abs(self.x-end.x) + abs(self.y-end.y) #Manhattan  Metric
-        #return math.sqrt((self.x-end.x)**2 + (self.y-end.y)**2) - DOESNT WORK WELL
+        if DIJKSTRA: return 0
+        else: return abs(self.x-end.x) + abs(self.y-end.y) #Manhattan  Metric
+        #return math.sqrt((self.x-end.x)**2 + (self.y-end.y)**2) - Euclidean Metric - DOES NOT work well in grid
+
 
     def __lt__(self, other):
         return False #will allow tuple use in heap
@@ -227,5 +243,24 @@ def visualization():
                 grid=init_grid()
                 alg_run=False
 
+#SETTINGS:
+def settings():
+    def setup(square_size,sleep_time,dijkstra):
+        global SQUARE_SIZE,SLEEP_TIME,DIJKSTRA
+        global WIDTH,SCREEN
+        SQUARE_SIZE, SLEEP_TIME, DIJKSTRA=square_size,sleep_time,dijkstra
+        #re-calculate:
+        WIDTH = SQUARE_SIZE * WIDTH_BY_GRIDS
+        SCREEN = pygame.display.set_mode((WIDTH, WIDTH + 3 * SQUARE_SIZE))
 
-visualization()
+        visualization()
+
+    settings_wind = GUIApp(setup,title='A* Visualisation Settings',width=460)
+    settings_wind.setField('square_size','combobox',label='Screen Size',default='MD',values=SQUARE_SIZE_DICT)
+    settings_wind.setField('sleep_time', 'combobox',label='Visualization Speed',default='Normal',
+                           values=SLEEP_TIME_DICT)
+    settings_wind.setField('dijkstra', 'combobox',label='Algorithm to Run',default='A* Algorithm',
+                           values=ALGORITHM_CHOICE_DICT)
+    settings_wind.run()
+
+settings()
