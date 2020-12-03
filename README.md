@@ -11,6 +11,6 @@ Starts from the GREEN node,
  Shortest path marked in PURPLE.
 
 ### Notes:
-- Could be implemented more efficient asymptotically using Fibonacci Heap.
+- Could be implemented asymptotically more efficient  using Fibonacci Heap.
 - Running the Dijkstra-version (via settings), on this grid, is BFS de-facto.  
 
