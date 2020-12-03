@@ -6,9 +6,9 @@
 
 ### Demo:
 <img src="https://github.com/matanbt/A-Star-Algorithm-Visualization/blob/master/img/demo.png" width=400>
-Starts from the *GREEN* node, 
-ends in the *RED* node, 
-shortest path marked in *PURPLE*.
+Starts from the GREEN node, 
+ Ends in the RED node, 
+ Shortest path marked in PURPLE.
 
 ### Notes:
 - Could be implemented more efficient asymptotically using Fibonacci Heap.
